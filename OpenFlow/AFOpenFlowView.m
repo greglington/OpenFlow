@@ -204,6 +204,19 @@ const static CGFloat kReflectionFraction = 0.85;
 	[super dealloc];
 }
 
+- (void)setFrame:(CGRect)newSize {
+	[super setFrame:newSize];
+	
+	halfScreenWidth = self.frame.size.width / 2;
+	halfScreenHeight = self.frame.size.height / 2;
+
+	int lowerBound = MAX(-1, selectedCoverView.number - COVER_BUFFER);
+	int upperBound = MIN(self.numberOfImages - 1, selectedCoverView.number + COVER_BUFFER);
+
+	[self layoutCovers:selectedCoverView.number fromCover:lowerBound toCover:upperBound];
+	[self centerOnSelectedCover:NO];
+}
+
 - (void)setBounds:(CGRect)newSize {
 	[super setBounds:newSize];
 	
